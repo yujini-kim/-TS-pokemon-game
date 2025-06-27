@@ -31,35 +31,33 @@ export default function usePokemonList() {
   return useQuery<FetchResult[]>({
     queryKey: ['pokeList'],
     queryFn: async () => {
-      const res = await fetch('https://pokeapi.co/api/v2/pokemon?limit=200&offset=0')
-      const json = await res.json() // 포켓몬 이름, 디테일url 하나
+      const fetchJSON = async (url: string) => (await fetch(url)).json()
+
+      const fetchBasicData = await fetchJSON('https://pokeapi.co/api/v2/pokemon?limit=200&offset=0')
 
       const pokeDetails = await Promise.all(
-        json.results.map(async (pokemon: PokemonBasicInfo) => {
-          const speciesRes = await fetch(
+        fetchBasicData.results.map(async (pokemon: PokemonBasicInfo) => {
+          const speciesDetails = await fetchJSON(
             `https://pokeapi.co/api/v2/pokemon-species/${pokemon.name}`,
-          ) //포켓몬 디테일 url
-          const speciesDetails = await speciesRes.json() //detail url 속 데이터
+          )
+          const koreaName =
+            speciesDetails.names.find((item: TranslatedName) => item.language.name === 'ko')
+              ?.name || pokemon.name
 
-          const koreaName = speciesDetails.names.find(
-            (item: TranslatedName) => item.language.name === 'ko',
-          ).name
-
-          const res = await fetch(pokemon.url)
-          const detail = await res.json()
+          const fetchBasicURL = await fetchJSON(pokemon.url)
 
           const koreaTypeName = await Promise.all(
-            detail.types.map(async (type: TypeSlot) => {
+            fetchBasicURL.types.map(async (type: TypeSlot) => {
               const typeRes = await fetch(type.type.url)
               const typeJson = await typeRes.json()
               const koreatype = await typeJson.names.find(
                 (item: TranslatedName) => item.language.name === 'ko',
-              ).name
+              )?.name
               return koreatype
             }),
           )
 
-          const pokemonImg = detail.sprites.other['official-artwork'].front_default
+          const pokemonImg = fetchBasicURL.sprites.other['official-artwork'].front_default
 
           return { koreaName, koreaTypeName, pokemonImg }
         }),
