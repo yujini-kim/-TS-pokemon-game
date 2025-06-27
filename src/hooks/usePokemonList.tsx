@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
 
 interface PokemonBasicInfo {
   name: string
@@ -27,43 +27,66 @@ interface FetchResult {
   pokemonImg: string
 }
 
+interface PageResult {
+  data: FetchResult[]
+  nextPage: number
+  isLast: boolean
+}
+
+const PAGE_LIMIT = 20
+
 export default function usePokemonList() {
-  return useQuery<FetchResult[]>({
-    queryKey: ['pokeList'],
-    queryFn: async () => {
-      const fetchJSON = async (url: string) => (await fetch(url)).json()
+  const fetchPokemon = async (offset: number) => {
+    const fetchJSON = async (url: string) => (await fetch(url)).json()
 
-      const fetchBasicData = await fetchJSON('https://pokeapi.co/api/v2/pokemon?limit=200&offset=0')
+    const fetchBasicData = await fetchJSON(
+      `https://pokeapi.co/api/v2/pokemon?limit=${PAGE_LIMIT}&offset=${offset}`,
+    )
 
-      const pokeDetails = await Promise.all(
-        fetchBasicData.results.map(async (pokemon: PokemonBasicInfo) => {
-          const speciesDetails = await fetchJSON(
-            `https://pokeapi.co/api/v2/pokemon-species/${pokemon.name}`,
-          )
-          const koreaName =
-            speciesDetails.names.find((item: TranslatedName) => item.language.name === 'ko')
-              ?.name || pokemon.name
+    const pokeDetails = await Promise.all(
+      fetchBasicData.results.map(async (pokemon: PokemonBasicInfo) => {
+        const speciesDetails = await fetchJSON(
+          `https://pokeapi.co/api/v2/pokemon-species/${pokemon.name}`,
+        )
+        const koreaName =
+          speciesDetails.names.find((item: TranslatedName) => item.language.name === 'ko')?.name ||
+          pokemon.name
 
-          const fetchBasicURL = await fetchJSON(pokemon.url)
+        const fetchBasicURL = await fetchJSON(pokemon.url)
 
-          const koreaTypeName = await Promise.all(
-            fetchBasicURL.types.map(async (type: TypeSlot) => {
-              const typeRes = await fetch(type.type.url)
-              const typeJson = await typeRes.json()
-              const koreatype = await typeJson.names.find(
-                (item: TranslatedName) => item.language.name === 'ko',
-              )?.name
-              return koreatype
-            }),
-          )
+        const koreaTypeName = await Promise.all(
+          fetchBasicURL.types.map(async (type: TypeSlot) => {
+            const typeRes = await fetch(type.type.url)
+            const typeJson = await typeRes.json()
+            const koreatype = await typeJson.names.find(
+              (item: TranslatedName) => item.language.name === 'ko',
+            )?.name
+            return koreatype
+          }),
+        )
 
-          const pokemonImg = fetchBasicURL.sprites.other['official-artwork'].front_default
+        const pokemonImg = fetchBasicURL.sprites.other['official-artwork'].front_default
 
-          return { koreaName, koreaTypeName, pokemonImg }
-        }),
-      )
+        return { koreaName, koreaTypeName, pokemonImg }
+      }),
+    )
+    const nextOffset = fetchBasicData.next ? offset + PAGE_LIMIT : undefined
+    const isLast = fetchBasicData.next === null
 
-      return pokeDetails
-    },
+    return { data: pokeDetails, nextOffset, isLast }
+  }
+
+  const {
+    data,
+    fetchNextPage, // 다음페이지 불러오는 함수
+    hasNextPage, //다음페이지가 있는지 여부
+    isFetchingNextPage, //다음페이지 불러오는중인지
+  } = useInfiniteQuery({
+    queryKey: ['pokemon-list'],
+    queryFn: ({ pageParam }) => fetchPokemon(pageParam), // pageParam을 offset으로 사용
+    getNextPageParam: (lastPage) => lastPage.nextOffset, // 다음 페이지에 넘길 pageParam계산
+    initialPageParam: 0, // 초기 offset 설정
   })
+
+  return { data, fetchNextPage, hasNextPage, isFetchingNextPage }
 }
