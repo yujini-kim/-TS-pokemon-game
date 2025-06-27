@@ -1,5 +1,10 @@
 import usePokemonList from './hooks/usePokemonList'
 
+/**
+ * Displays a list of Pokémon with their images, Korean names, and types.
+ *
+ * Fetches Pokémon data using a custom hook and renders each Pokémon's image, Korean name, and a comma-separated list of its types.
+ */
 function PokeBook() {
   const { data } = usePokemonList()
 

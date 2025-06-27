@@ -27,6 +27,13 @@ interface FetchResult {
   pokemonImg: string
 }
 
+/**
+ * Fetches and returns a list of Pokémon with their Korean names, Korean type names, and official artwork images.
+ *
+ * Uses React Query to asynchronously retrieve and cache data for 200 Pokémon, including their translated names and type information in Korean.
+ *
+ * @returns The query result containing an array of objects with Korean Pokémon names, Korean type names, and image URLs.
+ */
 export default function usePokemonList() {
   return useQuery<FetchResult[]>({
     queryKey: ['pokeList'],
