@@ -41,7 +41,7 @@ export default function usePokemonList() {
 
     const fetchBasicData = await fetchJSON(
       `https://pokeapi.co/api/v2/pokemon?limit=${PAGE_LIMIT}&offset=${offset}`,
-    )
+    ) //offset: 목록에서 몇번째 인덱스부터 가져올지 뜻함
 
     const pokeDetails = await Promise.all(
       fetchBasicData.results.map(async (pokemon: PokemonBasicInfo) => {
@@ -51,6 +51,8 @@ export default function usePokemonList() {
         const koreaName =
           speciesDetails.names.find((item: TranslatedName) => item.language.name === 'ko')?.name ||
           pokemon.name
+
+        const pokemonID = speciesDetails.id
 
         const fetchBasicURL = await fetchJSON(pokemon.url)
 
@@ -67,7 +69,7 @@ export default function usePokemonList() {
 
         const pokemonImg = fetchBasicURL.sprites.other['official-artwork'].front_default
 
-        return { koreaName, koreaTypeName, pokemonImg }
+        return { koreaName, pokemonID, koreaTypeName, pokemonImg }
       }),
     )
     const nextOffset = fetchBasicData.next ? offset + PAGE_LIMIT : undefined
