@@ -1,10 +1,24 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import usePokemonList from '../hooks/usePokemonList'
 import SearchBar from '../components/PokeBook/SearchBar'
+import TypesBox from '../components/PokeBook/TypesBox'
+import PokemonCard from '../components/PokeBook/PokemonCard'
 
 function PokeBook() {
-  const { fetchNextPage, hasNextPage, isFetchingNextPage } = usePokemonList()
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = usePokemonList()
   const veiwRef = useRef<HTMLDivElement>(null)
+  const [searchTerm, setSearchTerm] = useState('')
+  const [selectedType, setSelectedType] = useState('')
+  const filteredData = useMemo(() => {
+    if (!data) return []
+    return data.pages.map((page) =>
+      page.data.filter((pokemon) => {
+        const matchesName = pokemon.koreaName.includes(searchTerm)
+        const matchesType = selectedType ? pokemon.koreaTypeName?.includes(selectedType) : true
+        return matchesName && matchesType
+      }),
+    )
+  }, [data, searchTerm, selectedType])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -36,7 +50,9 @@ function PokeBook() {
 
   return (
     <div>
-      <SearchBar />
+      <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+      <TypesBox selectedType={selectedType} setSelectedType={setSelectedType} />
+      <PokemonCard filter={filteredData} />
 
       <div ref={veiwRef} className='flex justify-center items-center m-20'>
         로딩중...

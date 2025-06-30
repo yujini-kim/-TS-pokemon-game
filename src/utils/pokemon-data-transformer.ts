@@ -11,8 +11,10 @@ export async function transformPokemonDetails(
 ): Promise<PokemonDetails[]> {
   const pokeDetails: PokemonDetails[] = await Promise.all(
     fetchBasicData.results.map(async (pokemon: PokemonBasicInfo) => {
+      const fetchBasicDataDetails = await fetch(pokemon.url).then((res) => res.json())
+
       const speciesDetails = await fetch(
-        `https://pokeapi.co/api/v2/pokemon-species/${pokemon.name}`,
+        `https://pokeapi.co/api/v2/pokemon-species/${fetchBasicDataDetails.id}`,
       ).then((res) => res.json())
       const koreaName =
         speciesDetails.names.find((item: TranslatedName) => item.language.name === 'ko')?.name ||

@@ -1,18 +1,16 @@
-import { useState } from 'react'
-import usePokemonList from '../../hooks/usePokemonList'
-import PokemonCard from './PokemonCard'
+interface SearchBarProps {
+  searchTerm: string
+  setSearchTerm: (value: string) => void
+}
 
-export default function SearchBar() {
-  const [searchTerm, setSearchTerm] = useState('')
-  const { data } = usePokemonList()
-  const filter = data?.pages.map((page) =>
-    page.data.filter((pokemon) => pokemon.koreaName.includes(searchTerm)),
-  )
+export default function SearchBar({ searchTerm, setSearchTerm }: SearchBarProps) {
   return (
     <div>
-      <input value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
-      <button>검색</button>
-      {filter && filter.length > 0 && <PokemonCard filter={filter} />}
+      <input
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        placeholder='포켓몬 이름 검색'
+      />
     </div>
   )
 }
