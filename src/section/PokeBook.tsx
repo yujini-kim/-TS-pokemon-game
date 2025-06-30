@@ -3,6 +3,7 @@ import usePokemonList from '../hooks/usePokemonList'
 import SearchBar from '../components/PokeBook/SearchBar'
 import TypesBox from '../components/PokeBook/TypesBox'
 import PokemonCard from '../components/PokeBook/PokemonCard'
+import InfoModal from '../components/PokeBook/InfoModal'
 
 function PokeBook() {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = usePokemonList()
@@ -50,6 +51,8 @@ function PokeBook() {
 
   return (
     <div>
+      <InfoModal />
+
       <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       <TypesBox selectedType={selectedType} setSelectedType={setSelectedType} />
       <PokemonCard filter={filteredData} />

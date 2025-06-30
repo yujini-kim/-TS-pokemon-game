@@ -24,6 +24,12 @@ export interface PokemonDetails {
   koreaTypeName: (string | undefined)[]
   pokemonImg: string
   pokemonID: number
+  HP: number
+  attack: number
+  defense: number
+  spacialAttack: number
+  specialDefense: number
+  speed: number
 }
 
 export interface fetchPokemonList {
