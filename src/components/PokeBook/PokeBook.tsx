@@ -7,9 +7,11 @@ import InfoModal from './ui/InfoModal'
 import useInfiniteScroll from '../../hooks/useInfiniteScroll'
 import useFilteredPokemon from './hooks/useFilteredPokemon'
 import usePokemonModal from './hooks/usePokemonModal'
+import SkeletonCardList from './ui/SkeletonCardList'
 
 function PokeBook() {
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = usePokemonList()
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = usePokemonList()
+  console.log(isLoading)
   const viewRef = useRef<HTMLDivElement>(null)
 
   const [searchTerm, setSearchTerm] = useState('')
@@ -45,7 +47,12 @@ function PokeBook() {
       )}
       <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       <TypesBox selectedType={selectedType} setSelectedType={setSelectedType} />
-      <PokemonCard filter={filteredData} onCardClick={handleCardClick} />
+
+      {isLoading ? (
+        <SkeletonCardList />
+      ) : (
+        <PokemonCard filter={filteredData} onCardClick={handleCardClick} />
+      )}
 
       <div ref={viewRef} className='flex justify-center items-center m-20'>
         로딩중...

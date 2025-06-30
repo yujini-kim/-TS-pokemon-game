@@ -23,6 +23,7 @@ export default function usePokemonList() {
     fetchNextPage, // 다음페이지 불러오는 함수
     hasNextPage, //다음페이지가 있는지 여부
     isFetchingNextPage, //다음페이지 불러오는중인지
+    isLoading,
   } = useInfiniteQuery({
     queryKey: ['pokemon-list'],
     queryFn: ({ pageParam }) => fetchPokemonList(pageParam), // pageParam을 offset으로 사용
@@ -30,5 +31,5 @@ export default function usePokemonList() {
     initialPageParam: 0, // 초기 offset 설정
   })
 
-  return { data, fetchNextPage, hasNextPage, isFetchingNextPage }
+  return { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading }
 }
