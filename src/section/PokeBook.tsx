@@ -4,12 +4,29 @@ import SearchBar from '../components/PokeBook/SearchBar'
 import TypesBox from '../components/PokeBook/TypesBox'
 import PokemonCard from '../components/PokeBook/PokemonCard'
 import InfoModal from '../components/PokeBook/InfoModal'
+import type { PokemonDetails } from '../types/pokemon'
 
 function PokeBook() {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = usePokemonList()
   const veiwRef = useRef<HTMLDivElement>(null)
+
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedType, setSelectedType] = useState('')
+
+  const [selectedPokemon, setSelectedPokemon] = useState<PokemonDetails | null>(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const handleCardClick = (pokemon: PokemonDetails) => {
+    setSelectedPokemon(pokemon || null)
+    setIsModalOpen(true)
+    console.log('선택된 포켓몬', pokemon)
+  }
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false)
+    setSelectedPokemon(null)
+  }
+
   const filteredData = useMemo(() => {
     if (!data) return []
     return data.pages.map((page) =>
@@ -51,11 +68,24 @@ function PokeBook() {
 
   return (
     <div>
-      <InfoModal />
-
+      {isModalOpen && selectedPokemon && (
+        <InfoModal
+          ID={selectedPokemon.pokemonID}
+          name={selectedPokemon.koreaName}
+          img={selectedPokemon.pokemonImg}
+          flavorText={selectedPokemon.flavorText}
+          HP={selectedPokemon.HP}
+          attack={selectedPokemon.attack}
+          defense={selectedPokemon.defense}
+          specialAttack={selectedPokemon.specialAttack}
+          specialDefense={selectedPokemon.specialDefense}
+          speed={selectedPokemon.speed}
+          onClose={handleCloseModal}
+        />
+      )}
       <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       <TypesBox selectedType={selectedType} setSelectedType={setSelectedType} />
-      <PokemonCard filter={filteredData} />
+      <PokemonCard filter={filteredData} onCardClick={handleCardClick} />
 
       <div ref={veiwRef} className='flex justify-center items-center m-20'>
         로딩중...

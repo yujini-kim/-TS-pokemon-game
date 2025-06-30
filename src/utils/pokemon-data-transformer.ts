@@ -1,17 +1,11 @@
 import type {
-  PokemonBasicInfo,
+  flavorText,
   PokemonDetails,
   PokemonListApiResponse,
+  Stat,
   TranslatedName,
   TypeSlot,
 } from '../types/pokemon'
-
-interface Stat {
-  base_stat: number
-  stat: {
-    name: string
-  }
-}
 
 async function getStatValue(stats: Stat[], name: string) {
   return stats.find((stat) => stat.stat.name === name)?.base_stat || 0
@@ -20,7 +14,12 @@ async function getStatValue(stats: Stat[], name: string) {
 async function getKoreanName(names: TranslatedName[]) {
   return names.find((item) => item.language.name === 'ko')?.name
 }
-
+async function getKoreanFlavorText(flavorTexts: flavorText[]): Promise<string> {
+  return (
+    flavorTexts.find((item) => item.language.name === 'ko')?.flavor_text ||
+    'No flavor text available in Korean.'
+  )
+}
 async function getKoreanTypes(types: TypeSlot[]) {
   return Promise.all(
     types.map(async (type) => {
@@ -48,9 +47,10 @@ export async function transformPokemonDetails(
         HP: await getStatValue(details.stats, 'hp'),
         attack: await getStatValue(details.stats, 'attack'),
         defense: await getStatValue(details.stats, 'defense'),
-        spacialAttack: await getStatValue(details.stats, 'special-attack'),
+        specialAttack: await getStatValue(details.stats, 'special-attack'),
         specialDefense: await getStatValue(details.stats, 'special-defense'),
         speed: await getStatValue(details.stats, 'speed'),
+        flavorText: await getKoreanFlavorText(species.flavor_text_entries),
       }
     }),
   )

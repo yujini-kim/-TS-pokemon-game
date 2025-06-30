@@ -27,9 +27,10 @@ export interface PokemonDetails {
   HP: number
   attack: number
   defense: number
-  spacialAttack: number
+  specialAttack: number
   specialDefense: number
   speed: number
+  flavorText: string
 }
 
 export interface fetchPokemonList {
@@ -43,4 +44,17 @@ export interface PokemonListApiResponse {
   next: string | null
   previous: string | null
   results: PokemonBasicInfo[]
+}
+export interface Stat {
+  base_stat: number
+  stat: {
+    name: string
+  }
+}
+
+export interface flavorText {
+  flavor_text: string
+  language: {
+    name: string
+  }
 }

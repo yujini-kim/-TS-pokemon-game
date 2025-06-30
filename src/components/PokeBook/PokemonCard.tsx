@@ -2,14 +2,20 @@ import type { PokemonDetails } from '../../types/pokemon'
 
 interface FilteredPokemonListProps {
   filter: PokemonDetails[][] | undefined
+
+  onCardClick: (pokemonId: PokemonDetails) => void
 }
 
-export default function PokemonCard({ filter }: FilteredPokemonListProps) {
+export default function PokemonCard({ filter, onCardClick }: FilteredPokemonListProps) {
   return (
     <div className='grid grid-cols-3 gap-y-4 overflow-y-auto max-h-120'>
       {filter?.map((pokemon) =>
         pokemon.map((poke) => (
-          <div className='cols-span-1 w-full h-full' key={poke.pokemonID}>
+          <div
+            className='cols-span-1 w-full h-full cursor-pointer'
+            key={poke.pokemonID}
+            onClick={() => onCardClick(poke)}
+          >
             <div className='w-full h-full flex flex-col justify-center items-center gap-1'>
               <h1 className='font-semibold'>{poke.pokemonID}</h1>
               <img src={poke.pokemonImg} alt={poke.koreaName} width={70} />
