@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import PokeBook from './section/PokeBook'
+import PokeBook from './components/PokeBook/PokeBook'
 
 function App() {
   const queryClient = new QueryClient()

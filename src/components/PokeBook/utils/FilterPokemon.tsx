@@ -1,4 +1,4 @@
-import usePokemonList from '../../hooks/usePokemonList'
+import usePokemonList from '../../../hooks/usePokemonList'
 const { data } = usePokemonList()
 
 export function typeFilter(e: React.MouseEvent<HTMLButtonElement>) {
