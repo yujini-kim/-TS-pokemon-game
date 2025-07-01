@@ -23,7 +23,8 @@ function PokeBook() {
   const [selectedSort, setSelectedSort] = useState('도감번호순')
 
   const filteredData = useFilteredPokemon(allPokemon, searchTerm, selectedType)
-  const sortedData = useSortPokemon()(filteredData, selectedSort)
+  const sortPokemon = useSortPokemon()
+  const sortedData = sortPokemon(filteredData, selectedSort)
 
   const { selectedPokemon, isModalOpen, handleCardClick, handleCloseModal } = usePokemonModal()
 
