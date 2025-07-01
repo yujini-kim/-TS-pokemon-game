@@ -8,24 +8,25 @@ import useInfiniteScroll from '../../hooks/useInfiniteScroll'
 import useFilteredPokemon from './hooks/useFilteredPokemon'
 import usePokemonModal from './hooks/usePokemonModal'
 import SkeletonCardList from './ui/SkeletonCardList'
+import LoadingAnimation from './ui/LoadingAnimation'
 
 function PokeBook() {
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = usePokemonList()
-  console.log(isLoading)
+  const { allPokemon, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = usePokemonList()
+
   const viewRef = useRef<HTMLDivElement>(null)
 
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedType, setSelectedType] = useState('')
 
-  const filteredData = useFilteredPokemon(data, searchTerm, selectedType)
+  const filteredData = useFilteredPokemon(allPokemon, searchTerm, selectedType)
 
   const { selectedPokemon, isModalOpen, handleCardClick, handleCloseModal } = usePokemonModal()
 
   useInfiniteScroll({
     viewRef,
     fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
+    hasNextPage, //다음페이지 있는지
+    isFetchingNextPage, //다음데이터 불러오고 있는지 boolean
   })
 
   return (
@@ -48,14 +49,16 @@ function PokeBook() {
       <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       <TypesBox selectedType={selectedType} setSelectedType={setSelectedType} />
 
-      {isLoading ? (
+      {isLoading || isFetchingNextPage ? (
         <SkeletonCardList />
       ) : (
         <PokemonCard filter={filteredData} onCardClick={handleCardClick} />
       )}
 
-      <div ref={viewRef} className='flex justify-center items-center m-20'>
-        로딩중...
+      <div ref={viewRef} className='flex justify-center items-center mt-20 mb-200'>
+        {isFetchingNextPage && hasNextPage && <LoadingAnimation />}
+        {!hasNextPage && !isLoading && !isFetchingNextPage && <p>마지막 포켓몬입니다!</p>}
+        {/* 마지막 페이지 메시지 */}
       </div>
     </div>
   )

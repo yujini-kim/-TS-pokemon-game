@@ -23,7 +23,7 @@ export default function useInfiniteScroll({
       {
         root: null, // 뷰포트를 기준으로 관찰 (기본값)
         rootMargin: '0px', // 기본 마진
-        threshold: 0.8, // 타켓 엘리먼트가 뷰포트에 얼만큼 들어왔을때 실행되는지
+        threshold: 1, // 타켓 엘리먼트가 뷰포트에 얼만큼 들어왔을때 실행되는지
       },
     )
     if (viewRef.current) {
@@ -37,5 +37,5 @@ export default function useInfiniteScroll({
       }
       observer.disconnect() // 모든 관찰 중지 (확실하게)
     }
-  }, [hasNextPage, isFetchingNextPage, fetchNextPage])
+  }, [hasNextPage, isFetchingNextPage, fetchNextPage, isFetchingNextPage])
 }
