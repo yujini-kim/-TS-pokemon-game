@@ -9,6 +9,8 @@ import usePokemonModal from './hooks/usePokemonModal'
 import SkeletonCardList from './ui/SkeletonCardList'
 import LoadingAnimation from './ui/LoadingAnimation'
 import { useInView } from 'react-intersection-observer'
+import SortBar from './ui/SortBar'
+import { useSortPokemon } from './hooks/useSortPokemon'
 function PokeBook() {
   const { allPokemon, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = usePokemonList()
 
@@ -18,8 +20,11 @@ function PokeBook() {
 
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedType, setSelectedType] = useState('')
+  const [selectedSort, setSelectedSort] = useState('도감번호순')
 
   const filteredData = useFilteredPokemon(allPokemon, searchTerm, selectedType)
+  const sortPokemon = useSortPokemon()
+  const sortedData = sortPokemon(filteredData, selectedSort)
 
   const { selectedPokemon, isModalOpen, handleCardClick, handleCloseModal } = usePokemonModal()
 
@@ -29,10 +34,6 @@ function PokeBook() {
       fetchNextPage()
     }
   }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage])
-
-  useEffect(() => {
-    console.log('👀 inView:', inView)
-  }, [inView])
 
   return (
     <div>
@@ -53,7 +54,8 @@ function PokeBook() {
       )}
       <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       <TypesBox selectedType={selectedType} setSelectedType={setSelectedType} />
-      <PokemonCard filter={filteredData} onCardClick={handleCardClick} />
+      <SortBar selectedSort={selectedSort} setSelectedSort={setSelectedSort} />
+      <PokemonCard filter={sortedData} onCardClick={handleCardClick} />
 
       <div ref={ref} className='flex justify-center items-center mt-20 mb-200'>
         {isFetchingNextPage && <LoadingAnimation />}
