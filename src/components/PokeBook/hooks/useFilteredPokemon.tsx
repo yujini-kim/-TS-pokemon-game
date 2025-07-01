@@ -1,24 +1,16 @@
 import { useMemo } from 'react'
-import type { fetchPokemonList, PokemonDetails } from '../../../types/pokemon'
-import type { InfiniteData } from '@tanstack/react-query'
+import type { PokemonDetails } from '../../../types/pokemon'
 
 export default function useFilteredPokemon(
-  data: InfiniteData<fetchPokemonList, unknown> | undefined,
+  data: PokemonDetails[],
   searchTerm: string,
   selectedType: string,
-): PokemonDetails[][] {
+): PokemonDetails[] {
   return useMemo(() => {
-    if (!data) return []
-
-    return data.pages.map((page) => {
-      console.log(`페이지`, page)
-
-      return page.data.filter((pokemon) => {
-        const matchesName = searchTerm.trim() === '' || pokemon.koreaName?.includes(searchTerm)
-        const matchesType = selectedType === '' || pokemon.koreaTypeName?.includes(selectedType)
-
-        return matchesName && matchesType
-      })
+    return data.filter((pokemon) => {
+      const matchesName = searchTerm.trim() === '' || pokemon.koreaName?.includes(searchTerm)
+      const matchesType = selectedType === '' || pokemon.koreaTypeName?.includes(selectedType)
+      return matchesName && matchesType
     })
   }, [data, searchTerm, selectedType])
 }
