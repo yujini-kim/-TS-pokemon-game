@@ -8,13 +8,13 @@ import { getAuth } from 'firebase/auth'
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: import.meta.env.apiKey,
+  apiKey: import.meta.env.VITE_apiKey,
   authDomain: 'ts-pokemon-game.firebaseapp.com',
   projectId: 'ts-pokemon-game',
   storageBucket: 'ts-pokemon-game.firebasestorage.app',
-  messagingSenderId: import.meta.env.messagingSenderId,
-  appId: import.meta.env.appId,
-  measurementId: import.meta.env.measurementId,
+  messagingSenderId: import.meta.env.VITE_messagingSenderId,
+  appId: import.meta.env.VITE_appId,
+  measurementId: import.meta.env.VITE_measurementId,
 }
 
 // Initialize Firebase
