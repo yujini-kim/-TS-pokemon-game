@@ -1,4 +1,4 @@
-import StatBox from './StatBox'
+import StatBox from '../../components/PokeBook/ui/StatBox'
 
 interface ModalProps {
   ID: number
