@@ -17,7 +17,7 @@ export default function InputField<T extends FieldValues>({
 }: InputFieldProps<T>) {
   return (
     <>
-      <label htmlFor={label}>{label}</label>
+      <label htmlFor={String(id)}>{label}</label>
       <input {...register(id)} type={type} id={String(id)} className='border' />
       {error && <p>{error}</p>}
     </>

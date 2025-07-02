@@ -22,13 +22,8 @@ const schema = z
     if (password !== passwordConfirm) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
-        message: 'password not matched',
-        path: ['checkPassword'],
-      })
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: 'password not matched',
-        path: ['password'],
+        message: '비밀번호가 일치하지 않습니다',
+        path: ['passwordConfirm'],
       })
     }
   })
