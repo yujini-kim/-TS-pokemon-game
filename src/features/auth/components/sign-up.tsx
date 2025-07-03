@@ -1,9 +1,9 @@
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { useForm } from 'react-hook-form'
-import { auth } from '../../utils/firebase'
+import { auth } from '../../../utils/firebase'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import InputField from '../../components/auth/components/input-field'
+import InputField from '../../../components/input-field'
 interface SignUpForm {
   username: string
   email: string

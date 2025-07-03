@@ -1,9 +1,9 @@
 import { useForm } from 'react-hook-form'
-import InputField from '../../components/auth/components/input-field'
+import InputField from '../../../components/input-field'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { signInWithEmailAndPassword } from 'firebase/auth'
-import { auth } from '../../utils/firebase'
+import { auth } from '../../../utils/firebase'
 interface SignInForm {
   email: string
   password: string
