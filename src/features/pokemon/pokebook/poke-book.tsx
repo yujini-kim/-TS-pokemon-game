@@ -1,16 +1,18 @@
 import { useEffect, useState } from 'react'
-import usePokemonList from '../../hooks/usePokemonList'
-import SearchBar from './ui/SearchBar'
-import TypesBox from './ui/TypesBox'
-import PokemonCard from './ui/PokemonCard'
-import InfoModal from './ui/InfoModal'
-import useFilteredPokemon from './hooks/useFilteredPokemon'
-import usePokemonModal from './hooks/usePokemonModal'
-import SkeletonCardList from './ui/SkeletonCardList'
-import LoadingAnimation from './ui/LoadingAnimation'
+import usePokemonList from '../hooks/usePokemonList'
+import SearchBar from '../components/SearchBar'
+import TypesBox from '../components/TypesBox'
+import PokemonCard from '../components/PokemonCard'
+import InfoModal from '../components/InfoModal'
+
+import LoadingAnimation from '../../../components/LoadingAnimation'
 import { useInView } from 'react-intersection-observer'
-import SortBar from './ui/SortBar'
-import { useSortPokemon } from './hooks/useSortPokemon'
+import SortBar from '../components/SortBar'
+import useFilteredPokemon from '../hooks/useFilteredPokemon'
+import { useSortPokemon } from '../hooks/useSortPokemon'
+import SkeletonCardList from '../components/SkeletonCardList'
+import usePokemonModal from '../hooks/usePokemonModal'
+
 function PokeBook() {
   const { allPokemon, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = usePokemonList()
 

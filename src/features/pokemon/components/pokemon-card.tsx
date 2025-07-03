@@ -1,4 +1,4 @@
-import type { PokemonDetails } from '../../../types/pokemon'
+import type { PokemonDetails } from '../types/pokemon'
 
 interface FilteredPokemonListProps {
   filter: PokemonDetails[] | undefined
