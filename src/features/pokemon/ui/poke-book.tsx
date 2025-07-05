@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import usePokemonList from '../hooks/use-pokemon-list'
 import SearchBar from '../components/search-bar'
 import TypesBox from '../components/types-box'
-import PokemonCard from '../components/pokemon-card'
+import PokemonCard from '../components/pokemon-card-list'
 import PokemonDetailModal from '../components/pokemon-detail-modal'
 
 import LoadingAnimation from '../../../components/loading-animation'
