@@ -30,7 +30,7 @@ export default function TypesBox({ selectedType, setSelectedType }: TypesBoxProp
         <button
           key={type}
           onClick={() => {
-            ;(setSelectedType(type === selectedType ? '' : type), console.log(type))
+            setSelectedType(type === selectedType ? '' : type)
           }}
           id={type}
           className='col-span-1 flex justify-center items-center gap-1 cursor-pointer'

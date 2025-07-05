@@ -5,7 +5,7 @@ import type {
   Stat,
   TranslatedName,
   TypeSlot,
-} from '../types/pokemon'
+} from '../types/pokemon-api-types'
 
 async function getStatValue(stats: Stat[], name: string) {
   return stats.find((stat) => stat.stat.name === name)?.base_stat || 0

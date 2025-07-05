@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react'
-import usePokemonList from '../hooks/usePokemonList'
-import SearchBar from '../components/SearchBar'
-import TypesBox from '../components/TypesBox'
-import PokemonCard from '../components/PokemonCard'
-import InfoModal from '../components/InfoModal'
+import usePokemonList from '../hooks/use-pokemon-list'
+import SearchBar from '../components/search-bar'
+import TypesBox from '../components/types-box'
+import PokemonCard from '../components/pokemon-card-list'
+import PokemonDetailModal from '../components/pokemon-detail-modal'
 
-import LoadingAnimation from '../../../components/LoadingAnimation'
+import LoadingAnimation from '../../../components/loading-animation'
 import { useInView } from 'react-intersection-observer'
-import SortBar from '../components/SortBar'
-import useFilteredPokemon from '../hooks/useFilteredPokemon'
-import { useSortPokemon } from '../hooks/useSortPokemon'
-import SkeletonCardList from '../components/SkeletonCardList'
-import usePokemonModal from '../hooks/usePokemonModal'
+import SortBar from '../components/sort-bar'
+import useFilteredPokemon from '../hooks/use-filtered-pokemon'
+import { useSortPokemon } from '../hooks/use-sort-pokemon'
+import SkeletonCardList from '../components/skeleton-card-list'
+import usePokemonModal from '../hooks/use-pokemon-modal'
 
 function PokeBook() {
   const { allPokemon, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = usePokemonList()
@@ -40,17 +40,19 @@ function PokeBook() {
   return (
     <div>
       {isModalOpen && selectedPokemon && (
-        <InfoModal
-          ID={selectedPokemon.pokemonID}
-          name={selectedPokemon.koreaName}
-          img={selectedPokemon.pokemonImg}
-          flavorText={selectedPokemon.flavorText}
-          HP={selectedPokemon.HP}
-          attack={selectedPokemon.attack}
-          defense={selectedPokemon.defense}
-          specialAttack={selectedPokemon.specialAttack}
-          specialDefense={selectedPokemon.specialDefense}
-          speed={selectedPokemon.speed}
+        <PokemonDetailModal
+          stats={{
+            ID: selectedPokemon.pokemonID,
+            name: selectedPokemon.koreaName,
+            img: selectedPokemon.pokemonImg,
+            flavorText: selectedPokemon.flavorText,
+            HP: selectedPokemon.HP,
+            attack: selectedPokemon.attack,
+            defense: selectedPokemon.defense,
+            specialAttack: selectedPokemon.specialAttack,
+            specialDefense: selectedPokemon.specialDefense,
+            speed: selectedPokemon.speed,
+          }}
           onClose={handleCloseModal}
         />
       )}

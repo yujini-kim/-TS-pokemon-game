@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import type { PokemonDetails } from '../types/pokemon'
+import type { PokemonDetails } from '../types/pokemon-api-types'
 
 export default function useFilteredPokemon(
   data: PokemonDetails[],
