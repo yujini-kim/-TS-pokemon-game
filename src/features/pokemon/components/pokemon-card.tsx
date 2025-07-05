@@ -1,8 +1,7 @@
-import type { PokemonDetails } from '../types/pokemon'
+import type { PokemonDetails } from '../types/pokemon-api-types'
 
 interface FilteredPokemonListProps {
   filter: PokemonDetails[] | undefined
-
   onCardClick: (pokemonId: PokemonDetails) => void
 }
 

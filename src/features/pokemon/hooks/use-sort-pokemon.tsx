@@ -1,4 +1,4 @@
-import type { PokemonDetails } from '../types/pokemon'
+import type { PokemonDetails } from '../types/pokemon-api-types'
 
 export function useSortPokemon() {
   return (data: PokemonDetails[], sortBy: string) => {

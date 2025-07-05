@@ -1,4 +1,4 @@
-import SkeletonCard from './SkeletonCard'
+import SkeletonCard from './skeleton-card'
 
 export default function SkeletonCardList({ count = 15 }: { count?: number }) {
   return (

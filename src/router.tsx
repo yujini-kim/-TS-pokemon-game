@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import PokeBook from './features/pokemon/pokebook/PokeBook'
-import SignUp from './features/auth/components/sign-up'
-import SignIn from './features/auth/components/sign-in'
+import PokeBook from './features/pokemon/ui/poke-book'
+import SignUp from './features/auth/ui/sign-up'
+import SignIn from './features/auth/ui/sign-in'
 
 export default function Router() {
   return (
