@@ -11,7 +11,7 @@ export default function PokemonCardList({ filter, onCardClick }: PokemonCardList
     <div className='grid grid-cols-3 gap-y-4 overflow-y-auto max-h-120'>
       {filter?.map((poke) => (
         <div
-          className='cols-span-1 w-full h-full cursor-pointer'
+          className='col-span-1 w-full h-full cursor-pointer'
           key={poke.pokemonID}
           onClick={() => onCardClick(poke)}
         >
