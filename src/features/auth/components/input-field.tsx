@@ -19,7 +19,7 @@ export default function InputField<T extends FieldValues>({
     <>
       <div>
         <div className='w-52 flex gap-2 justify-center items-center border-b border-b-black focus:border-b-[#F74D66]'>
-          <img src={`./assets/image/${icon}-icon.webp`} className='size-4' />
+          <img src={`./assets/icon/${icon}-icon.webp`} className='size-4' />
           <input
             {...register(name)}
             {...props}
