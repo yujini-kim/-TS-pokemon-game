@@ -1,6 +1,6 @@
 export const SIGN_UP_FIELDS = [
-  { id: 'username', label: '이름', type: 'text' },
-  { id: 'email', label: '이메일', type: 'email' },
-  { id: 'password', label: '비밀번호', type: 'password' },
-  { id: 'passwordConfirm', label: '비밀번호 확인', type: 'password' },
+  { name: 'username', icon: 'profile', type: 'text', placeholder: '이름' },
+  { name: 'email', icon: 'mail', type: 'email', placeholder: '이메일' },
+  { name: 'password', icon: 'password', type: 'password', placeholder: '비밀번호' },
+  { name: 'passwordConfirm', icon: 'password', type: 'password', placeholder: '비밀번호 확인' },
 ] as const

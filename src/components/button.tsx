@@ -7,7 +7,7 @@ export default function Button({
 }) {
   return (
     <button
-      className='bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors'
+      className='bg-[#F74D66] mt-4 text-white text-xs px-4 py-2 rounded hover:bg-[#ff91a2] transition-colors'
       onClick={onClick}
     >
       {children}
