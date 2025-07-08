@@ -25,15 +25,15 @@ export default function SignUpForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col items-center justify-center'>
-      {SIGN_UP_FIELDS.map(({ id, icon, type, filedName }) => (
+      {SIGN_UP_FIELDS.map(({ name, icon, type, placeholder }) => (
         <InputField<SignUpForm>
-          key={id}
+          key={name}
           icon={icon}
-          id={id}
+          name={name}
           type={type}
+          placeholder={placeholder}
           register={register}
-          error={errors[id]?.message}
-          filedName={filedName}
+          error={errors[name]?.message}
         />
       ))}
       <Button>회원가입</Button>

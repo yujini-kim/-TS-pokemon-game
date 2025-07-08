@@ -21,17 +21,17 @@ export default function SignInForm() {
     <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col items-center justify-center'>
       <div className='flex flex-col gap-2 '>
         <InputField<SignInForm>
-          filedName={'이메알'}
+          placeholder={'이메알'}
           icon={'mail'}
-          id={'email'}
+          name={'email'}
           type={'email'}
           register={register}
           error={errors.email?.message}
         />
         <InputField<SignInForm>
-          filedName={'비밀번호'}
+          placeholder={'비밀번호'}
           icon={'password'}
-          id={'password'}
+          name={'password'}
           type={'password'}
           register={register}
           error={errors.password?.message}
