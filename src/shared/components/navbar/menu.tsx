@@ -1,7 +1,11 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
+import LogOutButton from './logout-button'
+import { useContext } from 'react'
+import { AuthContext } from '../../../context/auth-context'
 
 export default function Menu({ isMenuOpen }: { isMenuOpen: boolean }) {
+  const isLoggedIn = useContext(AuthContext)
   return (
     <AnimatePresence>
       {isMenuOpen && (
@@ -24,9 +28,15 @@ export default function Menu({ isMenuOpen }: { isMenuOpen: boolean }) {
           <li className='hover:text-white'>
             <Link to='/coin'>코인</Link>
           </li>
-          <li className='hover:text-white'>
-            <Link to='/sign-in'>로그인</Link>
-          </li>
+          {isLoggedIn ? (
+            <li className='hover:text-white'>
+              <LogOutButton />
+            </li>
+          ) : (
+            <li className='hover:text-white'>
+              <Link to='/sign-in'>로그인</Link>
+            </li>
+          )}
         </motion.ul>
       )}
     </AnimatePresence>
