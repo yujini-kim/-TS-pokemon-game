@@ -35,7 +35,7 @@ export default function TypesBox({ selectedType, setSelectedType }: TypesBoxProp
           id={type}
           className='col-span-1 flex justify-center items-center gap-1 cursor-pointer'
         >
-          <img className='size-4' src={`./assets/image/types/${type}.webp`} />
+          <img className='size-4' src={`./assets/type-icon/${type}.webp`} />
           <p className='text-sm'>{type}</p>
         </button>
       ))}

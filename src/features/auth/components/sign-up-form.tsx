@@ -1,4 +1,4 @@
-import Button from '../../../components/button'
+import Button from '../../../shared/components/button'
 import { SIGN_UP_FIELDS } from '../constants/input-fields'
 import useAuthForm from '../hooks/use-hooks-form'
 import { useAuthHandler } from '../lib/auth-handler'

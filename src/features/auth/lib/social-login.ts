@@ -9,7 +9,7 @@ export default function useSocialLogin() {
     const googleProvider = new GoogleAuthProvider()
 
     try {
-      const result = await signInWithPopup(auth, googleProvider)
+      await signInWithPopup(auth, googleProvider)
       alert('로그인 성공⭐')
       navigate('/')
     } catch (error) {
@@ -22,7 +22,7 @@ export default function useSocialLogin() {
     const githubProvider = new GithubAuthProvider()
 
     try {
-      const result = await signInWithPopup(auth, githubProvider)
+      await signInWithPopup(auth, githubProvider)
       alert('로그인 성공⭐')
       navigate('/')
     } catch (error) {
