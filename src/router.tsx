@@ -11,6 +11,7 @@ export default function Router() {
       <Routes>
         <Route path='/sign-up' element={<SignUp />} />
         <Route path='/sign-in' element={<SignIn />} />
+        <Route path='/pokemon-book' element={<PokeBook />} />
         <Route path='/' element={<PokeBook />} />
       </Routes>
     </BrowserRouter>

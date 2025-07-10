@@ -9,7 +9,7 @@ export default function Navbar() {
   return (
     <>
       <Header onMenuClick={onMenuClick} />
-      <Menu isMenuOpen={isMenuOpen} />
+      <Menu isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
     </>
   )
 }

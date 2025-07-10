@@ -1,10 +1,15 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import { Link } from 'react-router-dom'
 import LogOutButton from './logout-button'
 import { useContext } from 'react'
 import { AuthContext } from '../../../context/auth-context'
+import MenuList from './menu-list'
 
-export default function Menu({ isMenuOpen }: { isMenuOpen: boolean }) {
+interface MenuProps {
+  isMenuOpen: boolean
+  setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export default function Menu({ isMenuOpen, setIsMenuOpen }: MenuProps) {
   const isLoggedIn = useContext(AuthContext)
   return (
     <AnimatePresence>
@@ -16,25 +21,18 @@ export default function Menu({ isMenuOpen }: { isMenuOpen: boolean }) {
           transition={{ duration: 0.3 }}
           className='z-40 flex flex-col justify-center items-center text-sm gap-1 bg-MainColor-accent pb-4'
         >
-          <li className='hover:text-white'>
-            <Link to='/pokemon'>전체도감</Link>
-          </li>
-          <li className='hover:text-white'>
-            <Link to='/mypage'>내도감</Link>
-          </li>
-          <li className='hover:text-white'>
-            <Link to='/game'>게임</Link>
-          </li>
-          <li className='hover:text-white'>
-            <Link to='/coin'>코인</Link>
-          </li>
+          <MenuList setIsMenuOpen={setIsMenuOpen} pathname='/pokemon-book' text='전체도감' />
+          <MenuList setIsMenuOpen={setIsMenuOpen} pathname='/mybook' text='내도감' />
+          <MenuList setIsMenuOpen={setIsMenuOpen} pathname='/game' text='게임' />
+          <MenuList setIsMenuOpen={setIsMenuOpen} pathname='/gacha' text='코인' />
+
           {isLoggedIn ? (
             <li className='hover:text-white'>
-              <LogOutButton />
+              <LogOutButton setIsMenuOpen={setIsMenuOpen} />
             </li>
           ) : (
             <li className='hover:text-white'>
-              <Link to='/sign-in'>로그인</Link>
+              <MenuList setIsMenuOpen={setIsMenuOpen} pathname='/sign-in' text='로그인' />
             </li>
           )}
         </motion.ul>
