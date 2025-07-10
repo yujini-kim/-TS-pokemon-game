@@ -1,4 +1,4 @@
-import Button from '../../../components/button'
+import Button from '../../../shared/components/button'
 import type { StatsTypes } from '../types/stats-types'
 
 import StateGrid from './state-grid'

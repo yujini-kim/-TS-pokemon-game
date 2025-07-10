@@ -10,7 +10,7 @@ export default function RedirectButton({ message, linkTo, linkText }: RedirectBu
   return (
     <div className='flex flex-col items-center gap-2'>
       <span className='text-xs'>{message}</span>
-      <Link to={linkTo} className='text-xs text-[#F74D66]'>
+      <Link to={linkTo} className='text-xs text-MainColor-accent'>
         {linkText}
       </Link>
     </div>

@@ -5,7 +5,7 @@ import TypesBox from '../components/types-box'
 import PokemonCard from '../components/pokemon-card-list'
 import PokemonDetailModal from '../components/pokemon-detail-modal'
 
-import LoadingAnimation from '../../../components/loading-animation'
+import LoadingAnimation from '../../../shared/components/loading-animation'
 import { useInView } from 'react-intersection-observer'
 import SortBar from '../components/sort-bar'
 import useFilteredPokemon from '../hooks/use-filtered-pokemon'
