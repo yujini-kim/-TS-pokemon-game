@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import CoinBox from './coin-box'
 
 interface HeaderProps {
   onMenuClick: () => void
@@ -17,6 +18,8 @@ export default function Header({ onMenuClick }: HeaderProps) {
         <Link to='/'>
           <img className='size-16' src='/assets/image/logo.png' alt='로고' />
         </Link>
+
+        <CoinBox />
       </div>
     </nav>
   )

@@ -17,5 +17,9 @@ export default function LogOutButton({
         console.error('로그아웃실패', e)
         toast.error('로그아웃 실패')
       })
-  return <button onClick={logout}>로그아웃</button>
+  return (
+    <button className='hover:text-white' onClick={logout}>
+      로그아웃
+    </button>
+  )
 }

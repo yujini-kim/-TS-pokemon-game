@@ -24,16 +24,11 @@ export default function Menu({ isMenuOpen, setIsMenuOpen }: MenuProps) {
           <MenuList setIsMenuOpen={setIsMenuOpen} pathname='/pokemon-book' text='전체도감' />
           <MenuList setIsMenuOpen={setIsMenuOpen} pathname='/mybook' text='내도감' />
           <MenuList setIsMenuOpen={setIsMenuOpen} pathname='/game' text='게임' />
-          <MenuList setIsMenuOpen={setIsMenuOpen} pathname='/gacha' text='코인' />
 
           {isLoggedIn ? (
-            <li className='hover:text-white'>
-              <LogOutButton setIsMenuOpen={setIsMenuOpen} />
-            </li>
+            <LogOutButton setIsMenuOpen={setIsMenuOpen} />
           ) : (
-            <li className='hover:text-white'>
-              <MenuList setIsMenuOpen={setIsMenuOpen} pathname='/sign-in' text='로그인' />
-            </li>
+            <MenuList setIsMenuOpen={setIsMenuOpen} pathname='/sign-in' text='로그인' />
           )}
         </motion.ul>
       )}
