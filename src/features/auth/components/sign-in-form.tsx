@@ -1,4 +1,4 @@
-import Button from '../../../components/button'
+import Button from '../../../shared/components/button'
 import useAuthForm from '../hooks/use-hooks-form'
 import { useAuthHandler } from '../lib/auth-handler'
 import { signInSchema, type SignInForm } from '../model/schema'

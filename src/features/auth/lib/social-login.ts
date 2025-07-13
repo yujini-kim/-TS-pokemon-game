@@ -1,6 +1,7 @@
 import { signInWithPopup, GoogleAuthProvider, GithubAuthProvider } from 'firebase/auth'
 import { auth } from '../../../utils/firebase'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 export default function useSocialLogin() {
   const navigate = useNavigate()
@@ -9,12 +10,12 @@ export default function useSocialLogin() {
     const googleProvider = new GoogleAuthProvider()
 
     try {
-      const result = await signInWithPopup(auth, googleProvider)
-      alert('로그인 성공⭐')
+      await signInWithPopup(auth, googleProvider)
+      toast.success('로그인 성공')
       navigate('/')
     } catch (error) {
       console.error('Google 로그인 실패:', error)
-      alert('로그인 실패🤔')
+      toast.error('로그인 실패')
     }
   }
 
@@ -22,12 +23,12 @@ export default function useSocialLogin() {
     const githubProvider = new GithubAuthProvider()
 
     try {
-      const result = await signInWithPopup(auth, githubProvider)
-      alert('로그인 성공⭐')
+      await signInWithPopup(auth, githubProvider)
+      toast.success('로그인 성공')
       navigate('/')
     } catch (error) {
       console.error('GitHub 로그인 실패:', error)
-      alert('로그인 실패🤔')
+      toast.error('로그인 실패')
     }
   }
 
